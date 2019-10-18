@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -21,15 +22,14 @@ import com.jprm.searchtwitter.entity.TweetQueryWrapperEntity;
 
 @Service
 public class SearchTwitterService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(LocalTweetService.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
 	
 	@Autowired
 	private AuthTwitterService authTwitterService;
-
-	@Autowired
-	private Logger logger;
 
 	@Value("{config.twitter.search.url}")
 	private String twitterSearchUrl;
