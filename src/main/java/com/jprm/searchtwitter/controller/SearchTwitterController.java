@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jprm.searchtwitter.converter.TweetConverter;
@@ -26,13 +27,13 @@ public class SearchTwitterController {
 	private LocalTweetService localTweetService; 
 	
 	@GetMapping("/twitter/search/tag/{tag}")
-	public List<TweetJpaModel> getTweetsByTag(@PathVariable("tag") String tag) {
+	public List<TweetJpaModel> getTweetsByTag(@PathVariable("tag") String tag, @RequestParam(name = "limit", defaultValue = "5") Long limit) {
 		
-		List<TweetHttpEntity> tweetHttpEntityList = searchTwitterService.searchTweetsByTag(tag);
+		List<TweetHttpEntity> tweetHttpEntityList = searchTwitterService.searchTweetsByTag(tag, limit);
 		
-		List<TweetJpaModel> tweetJpaModelList = tweetConverter.fromTweetHttpEntityListToTweetJpaModelList(tweetHttpEntityList);
+		List<TweetJpaModel> tweetJpaModelList = tweetConverter.fromTweetHttpEntityListToTweetJpaModelList(tweetHttpEntityList, tag);
 		
-		return localTweetService.saveAll(tweetJpaModelList);
+		return localTweetService.saveAllTweets(tweetJpaModelList);
 	}
 
 }

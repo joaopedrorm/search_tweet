@@ -17,9 +17,9 @@ import com.jprm.searchtwitter.model.UserJpaModel;
 @Component
 public class TweetConverter {
 	
-	private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
+	private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss ZZZ yyyy");
 
-	public List<TweetJpaModel> fromTweetHttpEntityListToTweetJpaModelList(List<TweetHttpEntity> tweetHttpEntityList) {
+	public List<TweetJpaModel> fromTweetHttpEntityListToTweetJpaModelList(List<TweetHttpEntity> tweetHttpEntityList, String tag) {
 		
 		if(tweetHttpEntityList == null) {
 			
@@ -28,16 +28,17 @@ public class TweetConverter {
 		} else {
 		
 			return tweetHttpEntityList.stream()
-					.map(this::fromTweetHttpEntityToTweetJpaModel)
+					.map(t -> fromTweetHttpEntityToTweetJpaModel(t, tag))
 					.collect(Collectors.toList());
 		}
 
 	}
 	
-	public TweetJpaModel fromTweetHttpEntityToTweetJpaModel(TweetHttpEntity tweetHttpEntity) {
+	public TweetJpaModel fromTweetHttpEntityToTweetJpaModel(TweetHttpEntity tweetHttpEntity, String tag) {
 		
 		TweetJpaModel tweetJpaModel = new TweetJpaModel();
 		
+		tweetJpaModel.setTag(tag);
 		tweetJpaModel.setCreateAt(fromStringToLocalDateTime(tweetHttpEntity.getCreateAt()));
 		tweetJpaModel.setId(tweetHttpEntity.getIdStr());
 		tweetJpaModel.setLang(tweetHttpEntity.getLang());

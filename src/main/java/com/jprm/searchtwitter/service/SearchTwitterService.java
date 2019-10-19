@@ -31,13 +31,18 @@ public class SearchTwitterService {
 	@Autowired
 	private AuthTwitterService authTwitterService;
 
-	@Value("{config.twitter.search.url}")
+	@Value("${config.twitter.search.url}")
 	private String twitterSearchUrl;
 
-	public List<TweetHttpEntity> searchTweetsByTag(String tag) {
+	public List<TweetHttpEntity> searchTweetsByTag(String tag, Long limit) {
 
-		URI uri = UriComponentsBuilder.fromHttpUrl(twitterSearchUrl + "?q={}&result_type=recent&count=100")
-				.build(tag);
+		URI uri = UriComponentsBuilder.fromUriString(twitterSearchUrl)
+				.queryParam("q", tag)
+				.queryParam("result_type", "recent")
+				.queryParam("count", limit)
+				.build()
+				.toUri();
+
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(authTwitterService.getAuthToken());
