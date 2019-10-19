@@ -16,7 +16,7 @@ public class TweetHttpEntity {
 	
 	private UserHttpEntity user;
 	
-	private String place;
+	private TweetPlaceHttpEntity place;
 	
 	private String lang;
 
@@ -52,11 +52,11 @@ public class TweetHttpEntity {
 		this.user = user;
 	}
 
-	public String getPlace() {
+	public TweetPlaceHttpEntity getPlace() {
 		return place;
 	}
 
-	public void setPlace(String place) {
+	public void setPlace(TweetPlaceHttpEntity place) {
 		this.place = place;
 	}
 

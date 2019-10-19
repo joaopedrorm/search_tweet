@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.jprm.searchtwitter.entity.TweetHttpEntity;
+import com.jprm.searchtwitter.entity.TweetPlaceHttpEntity;
 import com.jprm.searchtwitter.entity.UserHttpEntity;
 import com.jprm.searchtwitter.model.TweetJpaModel;
 import com.jprm.searchtwitter.model.UserJpaModel;
@@ -42,7 +43,7 @@ public class TweetConverter {
 		tweetJpaModel.setCreateAt(fromStringToLocalDateTime(tweetHttpEntity.getCreateAt()));
 		tweetJpaModel.setId(tweetHttpEntity.getIdStr());
 		tweetJpaModel.setLang(tweetHttpEntity.getLang());
-		tweetJpaModel.setPlace(tweetHttpEntity.getPlace());
+		tweetJpaModel.setPlace(fromTweetPlaceHttpEntityToCountryString(tweetHttpEntity.getPlace()));
 		tweetJpaModel.setText(tweetHttpEntity.getText());
 		tweetJpaModel.setUser(fromUserHttpEntityToUserJpaModel(tweetHttpEntity.getUser()));
 		
@@ -66,6 +67,18 @@ public class TweetConverter {
 		userJpaModel.setScreenName(userHttpEntity.getScreenName());
 		
 		return userJpaModel;
+	}
+	
+	public String fromTweetPlaceHttpEntityToCountryString(TweetPlaceHttpEntity tweetPlaceHttpEntity) {
+		if (tweetPlaceHttpEntity != null) {
+		
+			return tweetPlaceHttpEntity.getCountry();
+		
+		} else {
+			
+			return null;
+			
+		}
 	}
 	
 }
