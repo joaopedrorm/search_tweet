@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.jprm.searchtwitter.model.TweetJpaModel;
@@ -23,7 +25,7 @@ public class LocalTweetService {
 	@Autowired
 	private TweetRepository tweetRepository;
 	
-	public List<TweetJpaModel> saveAll(List<TweetJpaModel> tweetJpaModelList) {
+	public List<TweetJpaModel> saveAllTweets(List<TweetJpaModel> tweetJpaModelList) {
 		
 		Set<UserJpaModel> userJpaModelSet = tweetJpaModelList.stream()
 				.map(TweetJpaModel::getUser)
@@ -32,6 +34,15 @@ public class LocalTweetService {
 		userRepository.saveAll(userJpaModelSet);
 		
 		return (List<TweetJpaModel>)tweetRepository.saveAll(tweetJpaModelList);
+	}
+	
+	public List<UserJpaModel> getUsersOrderedByFollowersCount(Integer limit) {
+		
+		return userRepository.findAll(PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "followersCount")));
+	}
+	
+	public List<TweetJpaModel> getAllTweets() {
+		return (List<TweetJpaModel>) tweetRepository.findAll();
 	}
 
 }
