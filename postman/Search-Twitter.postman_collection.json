@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "c7248454-0aed-4aba-b312-53551966075e",
+		"name": "Search-Twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Tag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/twitter/search/tag/:tag?limit=30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"twitter",
+						"search",
+						"tag",
+						":tag"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "30"
+						}
+					],
+					"variable": [
+						{
+							"key": "tag",
+							"value": "%23OpenBanking"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top5UsersByFollowersCount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/local/user/top5byfollowerscount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"local",
+						"user",
+						"top5byfollowerscount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CountTweetByHoursDaily",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/local/tweet/countbyhourdaily",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"local",
+						"tweet",
+						"countbyhourdaily"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CountTweetByTagAndLanguageLocation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/local/tweet/countbytagandlanguagelocation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"local",
+						"tweet",
+						"countbytagandlanguagelocation"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
