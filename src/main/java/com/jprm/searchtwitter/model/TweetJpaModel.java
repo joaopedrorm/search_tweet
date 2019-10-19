@@ -19,6 +19,8 @@ public class TweetJpaModel {
 	
 	@Column(name = "created_at")
 	private LocalDateTime createAt;
+	
+	private String tag;
 
 	@ManyToOne
 	@JsonManagedReference
@@ -58,8 +60,8 @@ public class TweetJpaModel {
 
 	@Override
 	public String toString() {
-		return "{\"id\":\"" + id + "\", \"createAt\":\"" + createAt + "\", \"user\":\"" + user + "\", \"place\":\""
-				+ place + "\", \"lang\":\"" + lang + "\", \"text\":\"" + text + "\"}";
+		return "{\"id\":\"" + id + "\", \"createAt\":\"" + createAt + "\", \"tag\":\"" + tag + "\", \"user\":\"" + user
+				+ "\", \"place\":\"" + place + "\", \"lang\":\"" + lang + "\", \"text\":\"" + text + "\"}";
 	}
 
 	public String getId() {
@@ -76,6 +78,14 @@ public class TweetJpaModel {
 
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public UserJpaModel getUser() {
