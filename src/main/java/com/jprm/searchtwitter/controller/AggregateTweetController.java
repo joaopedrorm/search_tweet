@@ -27,4 +27,10 @@ public class AggregateTweetController {
 		
 		return aggregateLocalTweetService.getTweetsCountByHourDaily();
 	}
+	
+	@GetMapping("/local/tweet/countbytagandlanguagelocation")
+	public Map<String, Map<String, Long>> getTweetsCountByTagAndLanguageLocation() {
+		
+		return aggregateLocalTweetService.getTweetsCountByTagAndLanguageLocation();
+	}
 }
