@@ -38,7 +38,7 @@ public class LocalTweetService {
 	
 	public List<UserJpaModel> getUsersOrderedByFollowersCount(Integer limit) {
 		
-		return userRepository.findAll(PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "followersCount")));
+		return userRepository.findAllUsers(PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "followersCount")));
 	}
 	
 	public List<TweetJpaModel> getAllTweets() {
