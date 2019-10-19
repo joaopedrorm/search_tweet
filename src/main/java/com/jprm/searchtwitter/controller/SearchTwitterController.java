@@ -27,7 +27,7 @@ public class SearchTwitterController {
 	private LocalTweetService localTweetService; 
 	
 	@GetMapping("/twitter/search/tag/{tag}")
-	public List<TweetJpaModel> getTweetsByTag(@PathVariable("tag") String tag, @RequestParam(name = "limit", defaultValue = "5") Long limit) {
+	public List<TweetJpaModel> getTweetsByTag(@PathVariable("tag") String tag, @RequestParam(name = "limit", defaultValue = "100") Long limit) {
 		
 		List<TweetHttpEntity> tweetHttpEntityList = searchTwitterService.searchTweetsByTag(tag, limit);
 		

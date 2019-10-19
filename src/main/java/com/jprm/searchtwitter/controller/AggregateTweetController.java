@@ -1,36 +1,51 @@
 package com.jprm.searchtwitter.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jprm.searchtwitter.model.UserJpaModel;
-import com.jprm.searchtwitter.service.AggregateLocalTweetService;
+import com.jprm.searchtwitter.entity.AggregateTweetResultEntity;
+import com.jprm.searchtwitter.entity.AgrregateTweetHttpResponseWrapperEntity;
+import com.jprm.searchtwitter.service.AggregateTweetLocalService;
 
 @RestController
 public class AggregateTweetController {
 	
 	@Autowired
-	private AggregateLocalTweetService aggregateLocalTweetService;
+	private AggregateTweetLocalService aggregateLocalTweetService;
 
 	@GetMapping("/local/user/top5byfollowerscount")
-	public List<UserJpaModel> getTop5UsersByFollowersCount() {
+	public AgrregateTweetHttpResponseWrapperEntity getTop5UsersByFollowersCount() {
 		
-		return aggregateLocalTweetService.getTop5UsersOrderedByFollowersCount();
+		return fromAggregateTweetResultEntityToAggregateTweetResultEntity(
+				aggregateLocalTweetService.getTop5UsersOrderedByFollowersCount(),
+				"top5byfollowerscount");
 	}
 	
 	@GetMapping("/local/tweet/countbyhourdaily")
-	public Map<String, Map<String, Long>> getTweetsCountByHourDaily() {
+	public AgrregateTweetHttpResponseWrapperEntity getTweetsCountByHourDaily() {
 		
-		return aggregateLocalTweetService.getTweetsCountByHourDaily();
+		return fromAggregateTweetResultEntityToAggregateTweetResultEntity(
+				aggregateLocalTweetService.getTweetsCountByHourDaily(),
+				"countbyhourdaily");
 	}
 	
 	@GetMapping("/local/tweet/countbytagandlanguagelocation")
-	public Map<String, Map<String, Long>> getTweetsCountByTagAndLanguageLocation() {
+	public AgrregateTweetHttpResponseWrapperEntity getTweetsCountByTagAndLanguageLocation() {
 		
-		return aggregateLocalTweetService.getTweetsCountByTagAndLanguageLocation();
+		return fromAggregateTweetResultEntityToAggregateTweetResultEntity(
+				aggregateLocalTweetService.getTweetsCountByTagAndLanguageLocation(),
+				"countbytagandlanguagelocation");
+	}
+	
+	private AgrregateTweetHttpResponseWrapperEntity fromAggregateTweetResultEntityToAggregateTweetResultEntity(AggregateTweetResultEntity result, String report) {
+		
+		AgrregateTweetHttpResponseWrapperEntity response = new AgrregateTweetHttpResponseWrapperEntity();
+		
+		response.setCount(result.getCount());
+		response.setData(result.getData());
+		response.setReport(report);
+		
+		return response;
 	}
 }

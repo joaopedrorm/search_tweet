@@ -10,22 +10,29 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jprm.searchtwitter.entity.AggregateTweetResultEntity;
 import com.jprm.searchtwitter.model.TweetJpaModel;
 import com.jprm.searchtwitter.model.UserJpaModel;
 
 @Service
-public class AggregateLocalTweetService {
+public class AggregateTweetLocalService {
 	
 	@Autowired
 	private LocalTweetService localTweetService;
 	
-	public List<UserJpaModel> getTop5UsersOrderedByFollowersCount() {
+	public AggregateTweetResultEntity getTop5UsersOrderedByFollowersCount() {
 		
-		return localTweetService.getUsersOrderedByFollowersCount(5);
+		List<UserJpaModel> result = localTweetService.getUsersOrderedByFollowersCount(5);
+		
+		AggregateTweetResultEntity resultEntity = new AggregateTweetResultEntity();
+		resultEntity.setCount(Long.valueOf(result.size()));
+		resultEntity.setData(result);
+
+		return resultEntity;
 	}
 
 	
-	public Map<String, Map<String, Long>> getTweetsCountByHourDaily() {
+	public AggregateTweetResultEntity getTweetsCountByHourDaily() {
 
 		List<TweetJpaModel> tweetJpaModelList = localTweetService.getAllTweets();
 
@@ -43,11 +50,15 @@ public class AggregateLocalTweetService {
 
 			result.putIfAbsent(entry.getKey(), groupByHour);
 		}
+		
+		AggregateTweetResultEntity resultEntity = new AggregateTweetResultEntity();
+		resultEntity.setCount(Long.valueOf(tweetJpaModelList.size()));
+		resultEntity.setData(result);
 
-		return result;
+		return resultEntity;
 	}
 	
-	public Map<String, Map<String, Long>> getTweetsCountByTagAndLanguageLocation() {
+	public AggregateTweetResultEntity getTweetsCountByTagAndLanguageLocation() {
 		
 		List<TweetJpaModel> tweetJpaModelList = localTweetService.getAllTweets();
 		
@@ -56,7 +67,11 @@ public class AggregateLocalTweetService {
 						Collectors.groupingBy(this::laguageCountryGrouper,
 							Collectors.counting())));
 		
-		return groupByTagAndLaguageLocation;
+		AggregateTweetResultEntity resultEntity = new AggregateTweetResultEntity();
+		resultEntity.setCount(Long.valueOf(tweetJpaModelList.size()));
+		resultEntity.setData(groupByTagAndLaguageLocation);
+
+		return resultEntity;
 	}
 	
 	private String laguageCountryGrouper(TweetJpaModel input) {
