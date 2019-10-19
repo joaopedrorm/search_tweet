@@ -1,0 +1,35 @@
+<section style="padding: 20px;">
+
+  <h4>Reports</h4>
+  
+  <a href="/local/user/top5byfollowerscount">Top 5 Users by Followers Count</a>
+  <br/>
+  <a href="/local/tweet/countbyhourdaily">Tweets per hour daily</a>
+  <br/>
+  <a href="/local/tweet/countbytagandlanguagelocation">Tweets Count by Tag and Language/Location</a>
+  
+  <hr/>
+  
+  <h4>Twitter Tags</h4>
+  
+  <ul *ngFor="let item of items">
+    <span>{{ item }}</span>
+  </ul>
+  
+  <h4> Get tweets by tag </h4>
+  
+  <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >
+    <input type = "text" name = "tag" placeholder = "#tag" ngModel style="padding-bottom: 0.5em; padding-top: 0.5em; margin-bottom: 1em;">
+    <br/>
+    <input type = "number" name = "limit" placeholder = "100" ngModel style="padding-bottom: 0.5em; padding-top: 0.5em; margin-bottom: 1em;">
+    <br/>
+    <input type = "submit" value = "Send" style="margin-bottom: 2em;">
+  </form>
+  
+  <h4> Result </h4>
+  
+  <span>
+      {{ result | json }}
+  </span>
+  
+  </section>
