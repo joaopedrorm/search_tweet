@@ -1,7 +1,5 @@
 package com.jprm.searchtwitter.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -20,8 +18,6 @@ import com.jprm.searchtwitter.entity.TwitterTokenHttpEntity;
 @Service
 public class AuthTwitterService {
 
-	private static final Logger logger = LoggerFactory.getLogger(AuthTwitterService.class);
-	
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -67,9 +63,7 @@ public class AuthTwitterService {
 			
 			String errorMsg = "Erro de autenticação no twitter, HttpStatus: " + e.getStatusText();
 			
-			logger.error(errorMsg, e);
-			
-			throw new RuntimeException(errorMsg);
+			throw new RuntimeException(errorMsg, e);
 			
 		}
 	}

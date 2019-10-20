@@ -23,8 +23,6 @@ import com.jprm.searchtwitter.entity.TweetQueryWrapperEntity;
 @Service
 public class SearchTwitterService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(LocalTweetService.class);
-
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -67,9 +65,7 @@ public class SearchTwitterService {
 			
 			String errorMsg = "Erro ao consultar api /search do twitter, HttpStatus: " + e.getStatusText();
 			
-			logger.error(errorMsg, e);
-			
-			throw new RuntimeException(errorMsg);
+			throw new RuntimeException(errorMsg, e);
 		}
 		
 	}

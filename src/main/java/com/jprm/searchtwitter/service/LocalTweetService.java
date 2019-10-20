@@ -17,8 +17,6 @@ import com.jprm.searchtwitter.repository.UserRepository;
 @Service
 public class LocalTweetService {
 	
-	//private static final Logger logger = LoggerFactory.getLogger(LocalTweetService.class);
-	
 	@Autowired
 	private UserRepository userRepository;
 	
