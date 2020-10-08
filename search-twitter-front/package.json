@@ -21,7 +21,7 @@
     "@angular/router": "latest",
     "rxjs": "latest",
     "tslib": "latest",
-    "zone.js": latest"
+    "zone.js": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "latest",
